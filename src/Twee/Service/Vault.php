@@ -1,6 +1,10 @@
 <?php
 namespace Twee\Service;
 
+use DomainException;
+use OutOfRangeException;
+use InvalidArgumentException;
+
 class Vault
 {
     const VAULT = 'vault';
@@ -15,11 +19,19 @@ class Vault
     public function get(string $key)
     {
         if (!file_exists($this->filename)) {
-            return [];
+            throw new DomainException('File "' . $this->filename . '" does not exist');
         }
 
         $data = include $this->filename;
 
-        return array_key_exists($key, $data[self::VAULT]) ? (array) $data[self::VAULT][$key] : [];
+        if (!is_array($data) || !array_key_exists(self::VAULT, $data) || !is_array($data[self::VAULT])) {
+            throw new OutOfRangeException('Vault has incorrect format. Excepted <?php return ["vault" => [ "token" => "secret-data" ] ];');
+        }
+
+        if (!array_key_exists($key, $data[self::VAULT])) {
+            throw new InvalidArgumentException('Key "' . $key . '" does not exist');
+        }
+
+        return $data[self::VAULT][$key];
     }
 }

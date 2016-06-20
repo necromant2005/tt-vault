@@ -48,7 +48,7 @@ $ php composer.phar update
 ```php
 $vault = new Vault('path/to/vault.php');
 $vault->get('my-token'); // ['abc' => 123]
-$vault->get('non-exist'); // []
+$vault->get('non-exist'); // throw InvalidArgumentException
 ```
 
 Sample vault.php file
