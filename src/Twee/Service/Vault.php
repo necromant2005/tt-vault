@@ -16,7 +16,7 @@ class Vault
         $this->filename = $filename;
     }
 
-    public function get(string $key)
+    public function get(string $key) : array
     {
         if (!file_exists($this->filename)) {
             throw new DomainException('File "' . $this->filename . '" does not exist');
@@ -32,6 +32,6 @@ class Vault
             throw new InvalidArgumentException('Key "' . $key . '" does not exist');
         }
 
-        return $data[self::VAULT][$key];
+        return (array) $data[self::VAULT][$key];
     }
 }
