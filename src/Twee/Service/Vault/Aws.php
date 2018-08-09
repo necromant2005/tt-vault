@@ -20,7 +20,11 @@ class Aws implements VaultInterface
                 . '],' . PHP_EOL
                 . 'region  => us-east-1,' . PHP_EOL
                 . 'version => latest,' . PHP_EOL
+                . 'namespace => /twee/,' . PHP_EOL
                 . ']');
+        }
+        if (!array_key_exists('namespace', $credentials)) {
+            throw new DomainException('Namespace missed');
         }
         $this->client = new AwsSsmClient($credentials);
     }

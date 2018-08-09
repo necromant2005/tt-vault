@@ -17,11 +17,19 @@ class AwsTest extends TestCase
     }
 
     /**
+     * @expectedException DomainException
+     */
+    public function testConstructWithErrorNamespaceMissed()
+    {
+        $vault = new Aws(['region' => 'us-east-1', 'version' => 'latest']);
+    }
+
+    /**
      * @expectedException InvalidArgumentException
      */
     public function testNonExist()
     {
-        $vault = new Aws(['region' => 'us-east-1', 'version' => 'latest']);
+        $vault = new Aws(['region' => 'us-east-1', 'version' => 'latest', 'namespace' => '/twee/']);
 
         $reflectionClass = new ReflectionClass(Aws::class);
         $property = $reflectionClass->getProperty('client');
@@ -41,7 +49,7 @@ class AwsTest extends TestCase
      */
     public function testNonJson()
     {
-        $vault = new Aws(['region' => 'us-east-1', 'version' => 'latest']);
+        $vault = new Aws(['region' => 'us-east-1', 'version' => 'latest', 'namespace' => '/twee/']);
 
         $reflectionClass = new ReflectionClass(Aws::class);
         $property = $reflectionClass->getProperty('client');
@@ -58,7 +66,7 @@ class AwsTest extends TestCase
 
     public function test()
     {
-        $vault = new Aws(['region' => 'us-east-1', 'version' => 'latest']);
+        $vault = new Aws(['region' => 'us-east-1', 'version' => 'latest', 'namespace' => '/twee/']);
 
         $reflectionClass = new ReflectionClass(Aws::class);
         $property = $reflectionClass->getProperty('client');
