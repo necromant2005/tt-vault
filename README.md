@@ -1,7 +1,7 @@
 # tt-vault
 Vault for private keys and secret data
 
-[![Build Status](https://travis-ci.org/necromant2005/tt-vault.svg?branch=master)](https://travis-ci.org/necromant2005/tt-vault)
+[![Build Status](https://travis-ci.org/truesocialmetrics/vault.svg?branch=master)](https://travis-ci.org/truesocialmetrics/vault)
 
 
 
@@ -33,7 +33,7 @@ Installation
 
 ```json
 "require": {
-    "necromant2005/tt-vault": "*",
+    "truesocialmetrics/vault": "*",
 }
 ```
 
@@ -46,7 +46,7 @@ $ php composer.phar update
 #### Usage
 
 ```php
-$vault = new Vault('path/to/vault.php');
+$vault = new Vault\File('path/to/vault.php');
 $vault->get('my-token'); // ['abc' => 123]
 $vault->get('non-exist'); // throw InvalidArgumentException
 ```
@@ -62,3 +62,19 @@ return [
     ],
 ];
 ```
+
+Sample with AWS SSM parameter store
+```php
+$vault = new Vault\Aws([
+    'credentials' => [
+        'key'    => '...',
+        'secret' => '...',
+    ],
+    'region'  => 'us-east-1',
+    'version' => 'latest',
+]);
+$vault->get('my-token'); // ['abc' => 123]
+$vault->get('non-exist'); // throw InvalidArgumentException
+```
+
+

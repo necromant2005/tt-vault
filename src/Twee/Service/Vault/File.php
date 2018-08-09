@@ -1,11 +1,11 @@
 <?php
-namespace Twee\Service;
+namespace Twee\Service\Vault;
 
 use DomainException;
 use OutOfRangeException;
 use InvalidArgumentException;
 
-class Vault
+class File implements VaultInterface
 {
     const VAULT = 'vault';
 

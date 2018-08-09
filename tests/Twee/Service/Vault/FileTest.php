@@ -1,17 +1,17 @@
 <?php
 
-namespace Twee\Service;
+namespace Twee\Service\Vault;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class VaultTest extends PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     /**
      * @expectedException DomainException
      */
     public function testDoesNotExit()
     {
-        $vault = new Vault(__DIR__ . '/_files/non-exist-vault.php');
+        $vault = new File(__DIR__ . '/_files/non-exist-vault.php');
         $vault->get('abc');
     }
 
@@ -20,7 +20,7 @@ class VaultTest extends PHPUnit_Framework_TestCase
      */
     public function testInforrectFormat()
     {
-        $vault = new Vault(__DIR__ . '/_files/vault-incorrect-format.php');
+        $vault = new File(__DIR__ . '/_files/vault-incorrect-format.php');
         $vault->get('abc');
     }
 
@@ -29,13 +29,13 @@ class VaultTest extends PHPUnit_Framework_TestCase
      */
     public function testKeyDoesNotExist()
     {
-        $vault = new Vault(__DIR__ . '/_files/vault.php');
+        $vault = new File(__DIR__ . '/_files/vault.php');
         $vault->get('non-exist-key');
     }
 
     public function testGet()
     {
-        $vault = new Vault(__DIR__ . '/_files/vault.php');
+        $vault = new File(__DIR__ . '/_files/vault.php');
         $this->assertEquals(['abc' => 123], $vault->get('secret'));
     }
 }
