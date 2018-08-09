@@ -9,6 +9,7 @@ use InvalidArgumentException;
 class Aws implements VaultInterface
 {
     private $client = null;
+    private $namespace = '';
 
     public function __construct(array $credentials)
     {
@@ -27,12 +28,13 @@ class Aws implements VaultInterface
             throw new DomainException('Namespace missed');
         }
         $this->client = new AwsSsmClient($credentials);
+        $this->namespace = $credentials['namespace'];
     }
 
     public function get(string $key) : array
     {
         $result = $this->client->getParameter([
-            'Name' => $key,
+            'Name' => $this->namespace . $key,
         ]);
 
         $value = $result->get('Parameter')['Value'];
