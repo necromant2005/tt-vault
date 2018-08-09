@@ -1,9 +1,9 @@
 {
-    "name": "necromant2005/tt-vault",
+    "name": "truesocialmetrics/vault",
     "type": "library",
     "description": "Vault for private keys and secret data",
     "keywords": ["vault", "private keys", "secret data"],
-    "homepage": "https://github.com/necromant2005/tt-vault",
+    "homepage": "https://github.com/truesocialmetrics/vault",
     "license": "MIT",
     "authors": [
         {
@@ -15,6 +15,9 @@
     ],
     "require": {
         "php": ">=7.0.0"
+    },
+    "suggest": {
+        "aws/aws-sdk-php": " Allow using AWS SSM parameter store"
     },
     "autoload": {
         "psr-4": {
