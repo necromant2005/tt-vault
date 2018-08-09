@@ -33,6 +33,8 @@ class Aws implements VaultInterface
 
     public function get(string $key) : array
     {
+        $key = preg_replace('~[^a-zA-Z0-9/_-]+~', '__', $key);
+
         $result = $this->client->getParameter([
             'Name' => $this->namespace . $key,
         ]);
